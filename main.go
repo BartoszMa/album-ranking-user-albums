@@ -1,6 +1,7 @@
 package main
 
 import (
+	"album-ranking-user-albums/routes"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"os"
@@ -9,6 +10,8 @@ import (
 func main() {
 
 	router := gin.Default()
+
+	routes.SessionRoute(router)
 
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{os.Getenv("ALBUM_RANKING_API_GATEWAY")},
