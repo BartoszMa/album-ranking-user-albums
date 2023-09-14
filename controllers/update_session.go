@@ -1,7 +1,8 @@
 package controllers
 
 import (
-	"album-ranking-user-albums/responses"
+	"album-ranking-user-albums/controllers_helpers"
+	"album-ranking-user-albums/dbDriver"
 	"album-ranking-user-albums/spotify_models"
 	"album-ranking-user-albums/user_models"
 	"encoding/json"
@@ -9,6 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
+
+var userCollection = dbDriver.GetCollection(dbDriver.DB, "users")
 
 func fetchAlbums(token string, url string, user *user_models.User) (*user_models.User, error) {
 
@@ -62,25 +65,42 @@ func fetchAlbums(token string, url string, user *user_models.User) (*user_models
 	return fetchAlbums(token, result.Next, user)
 }
 
+//func CheckIfUserExist(id string) {
+//	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+//	var user user_models.User
+//	defer cancel()
+//	err := userCollection.FindOne(ctx, bson.M{"id": id}).Decode(&user)
+//}
+
 func UpdateAlbums() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.Param("token")
 
-		url := "https://api.spotify.com/v1/me/albums?limit=50"
+		//url := "https://api.spotify.com/v1/me/albums?limit=50"
+		//
+		//user := user_models.User{
+		//	Id: "user_id",
+		//}
 
-		user := user_models.User{
-			Id: "user_id",
-		}
+		//response, err := fetchAlbums(token, url, &user)
+		//if err != nil {
+		//	c.JSON(http.StatusInternalServerError, responses.UserResponse{Status: http.StatusInternalServerError, Message: "error fetching albums", Data: map[string]interface{}{"error": err.Error()}})
+		//	return
+		//}
+		//
+		//fmt.Println(response.Albums[0])
 
-		response, err := fetchAlbums(token, url, &user)
+		fmt.Println("")
+
+		profile, err := controllers_helpers.GetUserProfile(token)
+
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, responses.UserResponse{Status: http.StatusInternalServerError, Message: "error fetching albums", Data: map[string]interface{}{"error": err.Error()}})
-			return
+			fmt.Println(err)
 		}
 
-		fmt.Println(response.Albums[0])
+		fmt.Println(profile.ID)
 
-		c.JSON(http.StatusOK, responses.UserResponse{Status: http.StatusOK, Message: "ok", Data: map[string]interface{}{"data": "ok"}})
+		//c.JSON(http.StatusOK, responses.UserResponse{Status: http.StatusOK, Message: "ok", Data: map[string]interface{}{"data": "ok"}})
 
 	}
 }
