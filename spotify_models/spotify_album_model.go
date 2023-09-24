@@ -1,9 +1,5 @@
 package spotify_models
 
-type ID string
-
-type URI string
-
 type Image struct {
 	Height int    `json:"height"`
 	Width  int    `json:"width"`
@@ -12,8 +8,8 @@ type Image struct {
 
 type SimpleArtist struct {
 	Name         string            `json:"name"`
-	ID           ID                `json:"id"`
-	URI          URI               `json:"uri"`
+	ID           string            `json:"id"`
+	URI          string            `json:"uri"`
 	Endpoint     string            `json:"href"`
 	ExternalURLs map[string]string `json:"external_urls"`
 }
@@ -23,8 +19,8 @@ type SimpleAlbum struct {
 	Artists              []SimpleArtist    `json:"artists"`
 	AlbumGroup           string            `json:"album_group"`
 	AlbumType            string            `json:"album_type"`
-	ID                   ID                `json:"id"`
-	URI                  URI               `json:"uri"`
+	ID                   string            `json:"id"`
+	URI                  string            `json:"uri"`
 	AvailableMarkets     []string          `json:"available_markets"`
 	Endpoint             string            `json:"href"`
 	Images               []Image           `json:"images"`
@@ -76,11 +72,11 @@ type SimpleTrack struct {
 	ExternalURLs     map[string]string `json:"external_urls"`
 	ExternalIDs      TrackExternalIDs  `json:"external_ids"`
 	Endpoint         string            `json:"href"`
-	ID               ID                `json:"id"`
+	ID               string            `json:"id"`
 	Name             string            `json:"name"`
 	PreviewURL       string            `json:"preview_url"`
 	TrackNumber      int               `json:"track_number"`
-	URI              URI               `json:"uri"`
+	URI              string            `json:"uri"`
 	Type             string            `json:"type"`
 }
 

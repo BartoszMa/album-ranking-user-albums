@@ -5,9 +5,9 @@ type Profile struct {
 	ExternalURLs map[string]string `json:"external_urls"`
 	Followers    Followers         `json:"followers"`
 	Endpoint     string            `json:"href"`
-	ID           ID                `json:"id"`
+	ID           string            `json:"id"`
 	Images       []Image           `json:"images"`
-	URI          URI               `json:"uri"`
+	URI          string            `json:"uri"`
 	Country      string            `json:"country"`
 	Email        string            `json:"email"`
 	Product      string            `json:"product"`
